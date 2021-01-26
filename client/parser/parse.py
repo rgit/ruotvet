@@ -17,3 +17,20 @@ class Parser:
                 if h3_element:
                     output.append([self._regex_find(str(h3_element[0])), iteration["href"]])
         return output
+
+    @staticmethod
+    def _contains_stop_word(word: str):
+        stop_words = ["реклам", "отключ", "доступ", "отве", "вход", "выход", "регистра", "войти", "выйти",
+                      "зарегистриров"]
+        for stop_word in stop_words:
+            if stop_word in word:
+                return True
+        return False
+
+    def prepare_text(self, text: list):
+        output = []
+        for word in text:
+            if not self._contains_stop_word(word):
+                if word not in output:
+                    output.append(word)
+        return output
