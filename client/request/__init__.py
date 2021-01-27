@@ -15,7 +15,7 @@ class Request(requests.Request):
             "Upgrade-Insecure-Requests": "1"
         }
 
-    def make(self, method: str, url: str, body: dict = None, params: str = None):
+    def make(self, method: str, url: str, body: dict = None, params: str = None, stream: bool = False):
         try:
             response = requests.request(
                 method=method,
@@ -24,7 +24,8 @@ class Request(requests.Request):
                 params=params,
                 headers=self.headers,
                 allow_redirects=False,
-                timeout=5
+                timeout=5,
+                stream=stream
             )
         except (InvalidSchema, InvalidURL):
             raise InvalidRequestUrlException(

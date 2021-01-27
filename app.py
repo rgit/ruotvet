@@ -1,17 +1,7 @@
-from client.google import Google
+from client.znanija import Znanija
 
-g = Google()
-
-query = "Формулы косинуса суммы"
-
-# answers = g.search_for_links(query.split())
-#
-# for answer in answers:
-#     print(answer + "\n")
+zn = Znanija()
 
 print(
-    g.search(query).text
+    zn.get_answers("гомологу этиленгликоля соотвецтвует формула")
 )
-
-
-# # A private "znanija.com" api here -> ru-api.z-dn.net
