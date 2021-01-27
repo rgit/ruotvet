@@ -6,7 +6,11 @@ import re
 class Parser:
     @staticmethod
     def _regex_find(text: str):
-        return re.findall(r"(<span>(.+?)</span>)", text)[0][1]
+        output = re.findall(r"(<span>(.+?)</span>)", text)
+        if output:
+            return output[0][1]
+        else:
+            return None
 
     def parse_search_results(self, response: Response):
         soup = BeautifulSoup(response.text, "html.parser")

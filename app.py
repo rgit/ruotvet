@@ -2,11 +2,16 @@ from client.google import Google
 
 g = Google()
 
-# https://znanija.com/app/ask?entry=top&q=ТУТВОПРОС
+query = "Формулы косинуса суммы"
+
+# answers = g.search_for_links(query.split())
+#
+# for answer in answers:
+#     print(answer + "\n")
 
 print(
-    # g.search_for_page("https://znanija.com/task/29242596").text
-    g.search_for_links("Площадь прямоугольного треугольника равна 6, а длина медианы".split())
+    g.search(query).text
 )
 
 
+# # A private "znanija.com" api here -> ru-api.z-dn.net
