@@ -9,7 +9,7 @@ import re
 @dataclass
 class Task:
     url: str
-    question: str = None
+    question: str
     answer: str = None
     attachment: str = None
 
@@ -62,9 +62,8 @@ class Parser:
 
     def parse_question(self, response: Response) -> typing.List:
         soup = BeautifulSoup(response.text, "html.parser")
-        question = soup.find("h1", {"data-test": "question-box-text"})
-        answer = soup.find("div", {"data-test": "answer-box-text"})
-        attachment = soup.find("img", {"class": "brn-qpage-next-attachments-viewer-image-preview__image"})
+        question = soup.find("div", {"class": "q--qcomment medium"})
+        answer = soup.find("div", {"class": "a--atext atext"})
         output = []
 
         if question is not None:
@@ -75,8 +74,5 @@ class Parser:
             output.append(self.prepare_answer(answer.text))
         else:
             output.append("У вопроса нет текста ответа.")
-        if attachment:
-            output.append(self._match_media_url(attachment))
-        else:
-            output.append(None)
+        output.append(None)
         return output

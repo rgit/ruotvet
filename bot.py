@@ -1,5 +1,6 @@
 from aiogram import Bot, Dispatcher, executor, types
 from client.znanija import Znanija
+import os
 
 bot = Bot(token="1644466038:AAH2C43ArCoNfTb2GQJa4MxHQ3EpeZ82G7E")
 dp = Dispatcher(bot)
@@ -31,4 +32,6 @@ async def answer_handler(message: types.Message):
 
 
 if __name__ == "__main__":
+    for media in os.listdir("media"):
+        os.remove(f"media/{media}")
     executor.start_polling(dp, skip_updates=True)
