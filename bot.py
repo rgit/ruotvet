@@ -7,30 +7,27 @@ dp = Dispatcher(bot)
 
 @dp.message_handler(commands=['start'])
 async def start_handler(message: types.Message):
-    await message.answer("Привет! Задай вопрос с помощью команды /answer {вопрос тут}.")
+    await message.answer("Привет! Задай вопрос и получи ответ.")
 
 
-@dp.message_handler(commands="answer")
+@dp.message_handler()
 async def answer_handler(message: types.Message):
+    znanija = Znanija()
     try:
-        if message.text[8:]:
-            znanija = Znanija()
-            answer = znanija.get_answers(message.text[8:], count=0)[0]
-            if answer.attachment:
-                file = znanija.get_attachment(answer)
-                if file:
-                    await bot.send_photo(message.chat.id, photo=open(file, "rb"),
-                                         caption=f"Ответ на вопрос <b>\"{answer.question}\"</b>:\n\n<em>{answer.answer}"
-                                                 f"</em>\n\n<a href=\"{answer.url}\">Вопрос на znanija.com</a>",
-                                         parse_mode="html")
-            else:
-                await message.answer(f"Ответ на вопрос <b>\"{answer.question}\"</b>:\n\n<em>{answer.answer}</em>\n\n"
-                                     f"<a href=\"{answer.url}\">Вопрос на znanija.com</a>", parse_mode="html",
-                                     disable_web_page_preview=True)
+        answer = znanija.get_answers(message.text[8:], count=1)[0]
+        if answer.attachment:
+            file = znanija.get_attachment(answer)
+            if file:
+                await bot.send_photo(message.chat.id, photo=open(file, "rb"),
+                                     caption=f"Ответ на вопрос <b>\"{answer.question}\"</b>:\n\n<em>{answer.answer}"
+                                             f"</em>\n\n<a href=\"{answer.url}\">Вопрос на znanija.com</a>",
+                                     parse_mode="html")
         else:
-            await message.answer("Задайте вопрос с помощью команды /answer {вопрос тут}.")
+            await message.answer(f"Ответ на вопрос <b>\"{answer.question}\"</b>:\n\n<em>{answer.answer}</em>\n\n"
+                                 f"<a href=\"{answer.url}\">Вопрос на znanija.com</a>", parse_mode="html",
+                                 disable_web_page_preview=True)
     except IndexError:
-        await message.answer("Задайте вопрос с помощью команды /answer {вопрос тут}.")
+        await message.answer("Не найдет ответ на ваш вопрос. Попробуйте изменить слова на синонимы.")
 
 
 if __name__ == "__main__":

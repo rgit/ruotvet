@@ -10,7 +10,7 @@ class Znanija:
         parser = Parser()
         output = []
 
-        url = f"https://www.google.com/search?q=site:znanija.com {query.lower()}&start={offset}&num={count + 1}" \
+        url = f"https://www.google.com/search?q=site:znanija.com {query.lower()}&start={offset}&num={count}" \
               f"&ie=utf-8&oe=utf-8&lr=lang_{language}"
 
         answers = parser.parse_search_results(response=request.make("GET", url))
