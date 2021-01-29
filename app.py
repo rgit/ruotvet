@@ -1,5 +1,5 @@
-from client.otvetmail import OtvetMail
-from client.znanija import Znanija
+from ruotvet.otvetmail import OtvetMail
+from ruotvet.znanija import Znanija
 
 zn = Znanija()
 otvet = OtvetMail()

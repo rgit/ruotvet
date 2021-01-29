@@ -1,5 +1,5 @@
 from aiogram import Bot, Dispatcher, executor, types
-from client.znanija import Znanija
+from ruotvet.znanija import Znanija
 import os
 
 bot = Bot(token="1644466038:AAH2C43ArCoNfTb2GQJa4MxHQ3EpeZ82G7E")
