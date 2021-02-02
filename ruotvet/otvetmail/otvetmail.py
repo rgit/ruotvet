@@ -19,8 +19,4 @@ class OtvetMail:
             question_text, answer_text, attachment = parser.parse_question(request.make("GET", answer.url))
             output.append(replace(answer, **{"question": question_text, "answer": answer_text,
                                              "attachment": attachment}))
-
         return output
-
-
-

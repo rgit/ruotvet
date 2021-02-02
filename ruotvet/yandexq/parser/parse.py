@@ -47,20 +47,3 @@ class Parser:
                             Task(url=iteration["href"], question=None)
                         )
         return output
-
-    def parse_question(self, response: Response) -> typing.List:
-        soup = BeautifulSoup(response.text, "html.parser")
-        question = soup.find("div", {"class": "q--qcomment medium"})
-        answer = soup.find("div", {"class": "a--atext atext"})
-        output = []
-
-        if question is not None:
-            output.append(self.prepare_answer(question.text))
-        else:
-            output.append("У вопроса нет заголовка.")
-        if answer is not None:
-            output.append(self.prepare_answer(answer.text))
-        else:
-            output.append("У вопроса нет текста ответа.")
-        output.append(None)
-        return output
