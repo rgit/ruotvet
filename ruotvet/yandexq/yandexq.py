@@ -16,7 +16,6 @@ class YandexQ:
 
         answers = parser.parse_search_results(response=request.make("GET", url))
 
-
         for answer in answers:
             url = f"https://yandex.ru/znatoki/web-api/aggregate/page/qQuestionRoute?eventName=qQuestionRoute&" \
                   f"id={answer.url.split('/')[-2]}&exp_flags=new_quality"

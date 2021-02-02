@@ -1,6 +1,3 @@
-from ruotvet.otvetmail import OtvetMail
-from ruotvet.znanija import Znanija
-
 # from ruotvet.utils import Recognizer
 #
 # zn = Znanija()
@@ -21,9 +18,14 @@ from ruotvet.znanija import Znanija
 #     otvet.get_answers(question, count=1), "otvet.mail.ru"
 # )
 
-
+from ruotvet.otvetmail import OtvetMail
+from ruotvet.znanija import Znanija
 from ruotvet.yandexq import YandexQ
 
-print(
-    YandexQ().get_answers("Что реагирует с раствором гидроксида калия?", count=1)
-)
+
+question = "Линейная функция задана формулой: y=−x+14 Найдите значение аргумента, при котором значение функции равно: 9.?"
+
+
+print(OtvetMail.get_answers(query=question, count=1), "Znanija.com")
+print(Znanija().get_answers(query=question, count=1), "otvet.mail.ru")
+print(YandexQ().get_answers(query=question, count=1), "q.yandex.ru")
