@@ -8,7 +8,7 @@ except:
     long_description = "Library for searching answers to school questions."
 
 setup(
-    name="ruotvet",
+    name="old-ruotvet",
     version="0.0.1",
     description="Library for searching answers to school questions.",
     long_description=long_description,
@@ -18,7 +18,7 @@ setup(
     python_requires=">=3.6.0",
     url="https://github.com/ruotvet/ruotvet",
     packages=find_packages(),
-    install_requires=["requests", "beautifulsoup4", "opencv-python", "easyocr", "numpy"],
+    install_requires=["aiohttp", "beautifulsoup4", "opencv-python", "easyocr", "numpy", "pydantic"],
     include_package_data=True,
     license="GNU LGPLv3",
     classifiers=[
