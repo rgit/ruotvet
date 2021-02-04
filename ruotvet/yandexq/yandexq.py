@@ -1,4 +1,4 @@
-from ruotvet.request import Request
+from ruotvet.utils import Request
 from .parser import Parser, Task
 from dataclasses import replace
 import typing
@@ -32,11 +32,11 @@ class YandexQ:
                 else:
                     question_text = question_text
                 break
-            for answer_obj in response["answer"]:
-                if response["answer"][answer_obj]["good"] is True:
+            if "answer" in response:
+                for answer_obj in response["answer"]:
                     answer_text = response["answer"][answer_obj]["plainText"]
                     if answer_text is not None:
                         answer_text = answer_text
-                    break
+                        break
             output.append(replace(answer, **{"question": question_text, "answer": answer_text}))
         return output

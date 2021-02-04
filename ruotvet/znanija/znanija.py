@@ -1,4 +1,4 @@
-from ruotvet.request import Request
+from ruotvet.utils import Request
 from .parser import Parser, Task
 from dataclasses import replace
 import typing

@@ -8,8 +8,7 @@ import typing
 class Task:
     url: str
     question: str or None
-    answer: str = None
-    attachment: str = None
+    attachments: list = None
 
 
 class Parser:
@@ -36,17 +35,20 @@ class Parser:
 
     def parse_question(self, response: Response) -> typing.List:
         soup = BeautifulSoup(response.text, "html.parser")
-        question = soup.find("div", {"class": "q--qcomment medium"})
-        answer = soup.find("div", {"class": "a--atext atext"})
         output = []
 
-        if question is not None:
-            output.append(self.prepare_answer(question.text))
-        else:
-            output.append("У вопроса нет заголовка.")
-        if answer is not None:
-            output.append(self.prepare_answer(answer.text))
-        else:
-            output.append("У вопроса нет текста ответа.")
-        output.append(None)
+        question = soup.find("div", {"class": "article_header"}).text
+
+        if question:
+            output.append(" ".join(question.split()))
+
+        images = soup.find("div", {"itemprop": "acceptedAnswer"}).find_all("img")
+
+        if images:
+            images_output = []
+            for image in images:
+                image_src = str(image).split("../../")[1].split("\" width")[0]
+                images_output.append(f"https://superresheba.by/{image_src}")
+            if images_output:
+                output.append(images_output)
         return output

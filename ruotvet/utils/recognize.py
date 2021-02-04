@@ -4,8 +4,6 @@ import random
 import string
 import cv2
 
-reader = easyocr.Reader(["ru"])
-
 
 class Recognizer:
     @staticmethod
@@ -26,6 +24,7 @@ class Recognizer:
 
     @staticmethod
     def _extract_text(image):
+        reader = easyocr.Reader(["ru"])
         chunks, text = reader.readtext(image), ""
         for chunk in chunks:
             text = text + chunk[1]
