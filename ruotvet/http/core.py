@@ -9,6 +9,10 @@ class AbstractHTTPClient(ABC):
         ...
 
     @abstractmethod
+    async def request_content(self, method: str, url: str, body: dict = None, params: str = None) -> str:
+        ...
+
+    @abstractmethod
     async def request_json(self, method: str, url: str, body: dict = None, params: str = None) -> str:
         ...
 
@@ -34,7 +38,7 @@ class AIOHTTPClient:
             trust_env=False,
         )
 
-    async def request_text(self, method: str, url: str, body: dict = None, params: str = None) -> str:
+    async def request_text(self, method: str, url: str, body: dict = None, params: dict = None) -> str:
         async with self.session.request(
             method=method,
             url=url,
@@ -46,7 +50,19 @@ class AIOHTTPClient:
         ) as response:
             return await response.text()
 
-    async def request_json(self, method: str, url: str, body: dict = None, params: str = None) -> dict:
+    async def request_content(self, method: str, url: str, body: dict = None, params: dict = None) -> bytes:
+        async with self.session.request(
+            method=method,
+            url=url,
+            data=body,
+            params=params,
+            headers=self.headers,
+            allow_redirects=False,
+            timeout=5,
+        ) as response:
+            return await response.read()
+
+    async def request_json(self, method: str, url: str, body: dict = None, params: dict = None) -> dict:
         async with self.session.request(
             method=method,
             url=url,

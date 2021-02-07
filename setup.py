@@ -8,7 +8,7 @@ except:
     long_description = "Library for searching answers to school questions."
 
 setup(
-    name="old-ruotvet",
+    name="ruotvet",
     version="0.0.1",
     description="Library for searching answers to school questions.",
     long_description=long_description,

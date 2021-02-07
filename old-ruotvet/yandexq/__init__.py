@@ -1,1 +1,0 @@
-from .yandexq import YandexQ

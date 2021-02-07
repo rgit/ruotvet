@@ -1,7 +1,9 @@
 from ruotvet.http import AIOHTTPClient
-from ruotvet.types import Question
+from ruotvet.types import Question, Attachment
 from bs4 import BeautifulSoup
 from typing import List, Optional, AsyncGenerator
+from ruotvet.utils import generate_string
+import aiofiles
 import re
 
 
@@ -10,9 +12,9 @@ class Znanija:
         self.client = AIOHTTPClient()
         self.parser = Parser()
 
-    async def get_answers(self, query: str, count: int = 1, offset: int = 0, language: str = "ru") -> List[Question]:
-        url = f"https://www.google.com/search?q=site:znanija.com {query.lower()}&start={offset}&num={count}" \
-              f"&ie=utf-8&oe=utf-8&lr=lang_{language}"
+    async def get_answers(self, query: str, count: int = 1) -> List[Question]:
+        url = f"https://www.google.com/search?q=site:znanija.com {query.lower()}&start=0&num={count + 1}" \
+              f"&ie=utf-8&oe=utf-8&lr=lang_ru"
         output = []
         try:
             async for question in self.parser.parse_search_results(await self.client.request_text("GET", url)):
@@ -51,8 +53,9 @@ class Parser:
         question = self.prepare_text(soup.find("h1", {"data-test": "question-box-text"}).text) or None
         answer = self.prepare_text(soup.find("div", {"data-test": "answer-box-text"}).text) or None
         attachment = self._match_media_url(soup.find("img", {"class": "brn-qpage-next-attachments-viewer-"
-                                                                      "image-preview__image"})) or None
+                                                                      "image-preview__image"}))
         if not attachment:
             attachment = self._match_media_url(soup.find("div", {"class": "sg-text sg-text--break-words brn-rich-"
                                                                           "content js-answer-content"}).find("img"))
-        return {"question": question, "answer": answer, "attachments": [attachment]}
+        return {"question": question, "answer": answer, "attachments": [Attachment(url=attachment
+                                                                                   ) if attachment else None]}
