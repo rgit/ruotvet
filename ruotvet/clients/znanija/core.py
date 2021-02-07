@@ -2,8 +2,6 @@ from ruotvet.http import AIOHTTPClient
 from ruotvet.types import Question, Attachment
 from bs4 import BeautifulSoup
 from typing import List, Optional, AsyncGenerator
-from ruotvet.utils import generate_string
-import aiofiles
 import re
 
 
