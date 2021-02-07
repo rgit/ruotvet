@@ -9,7 +9,7 @@ except:
 
 setup(
     name="ruotvet",
-    version="0.0.2",
+    version="0.0.4",
     description="Library for searching answers to school questions.",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -19,7 +19,7 @@ setup(
     python_requires=">=3.6.0",
     url="https://github.com/ruotvet/ruotvet",
     packages=find_packages(),
-    install_requires=["aiohttp", "beautifulsoup4", "opencv-python", "easyocr", "numpy", "pydantic"],
+    install_requires=["aiohttp", "beautifulsoup4", "pydantic"],
     include_package_data=True,
     license="GNU LGPLv3",
     classifiers=[

@@ -1,1 +1,1 @@
-from .clients import Znanija, YandexQ, MailRu, SuperResheba
+from .clients import Znanija, YandexQ, MailRu, SuperResheba, GDZ
