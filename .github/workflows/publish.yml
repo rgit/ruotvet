@@ -1,20 +1,18 @@
-name: Upload Python Package
+name: Upload a new version of a RuOtvet package
 
 on:
   push:
     branches: master
-
+    
 jobs:
   deploy:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.x'
+        python-version: 3.8
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
@@ -26,5 +24,4 @@ jobs:
       run: |
         python setup.py sdist bdist_wheel
         twine upload dist/*
-        
         
