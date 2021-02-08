@@ -8,14 +8,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-python@v1
-        with:
-          python-version: '3.x'
-      - name: Installing dependences
-        run: |
-          pip3 install setuptools wheel twine
-          python3 setup.py sdist bdist_wheel
-      - name: Uploading to PyPI
+      - name: Upload to pypi.org
         uses: pypa/gh-action-pypi-publish@v1.4.1
         with:
           user: __token__
