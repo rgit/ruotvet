@@ -34,7 +34,7 @@ class AIOHTTPClient:
         }
         self.session = session or aiohttp.ClientSession(
             loop=asyncio.get_event_loop(),
-            connector=aiohttp.TCPConnector(verify_ssl=False),
+            connector=aiohttp.TCPConnector(ssl=False),
             trust_env=False,
         )
 

@@ -1,7 +1,8 @@
-from ruotvet.http import AIOHTTPClient
-from ruotvet.types import Question, Attachment
-from bs4 import BeautifulSoup
 from typing import List, Optional, AsyncGenerator
+from ruotvet.types import Question, Attachment
+from ..exceptions import EmptyQueryError
+from ruotvet.http import AIOHTTPClient
+from bs4 import BeautifulSoup
 import re
 
 
@@ -11,14 +12,16 @@ class GDZ:
         self.parser = Parser()
 
     async def get_answers(self, query: str, count: int = 1) -> List[Question]:
-        url = f"https://www.google.com/search?q=site:gdz.ru {query.lower()}&start=0&num={count}" \
-              f"&ie=utf-8&oe=utf-8&lr=lang_ru"
-        output = []
         try:
-            async for question in self.parser.parse_search_results(await self.client.request_text("GET", url)):
-                response = await self.parser.parse_question(await self.client.request_text("GET", question.url))
-                output.append(question.copy(update=response))
-            return output
+            if query:
+                url = f"https://www.google.com/search?q=site:gdz.ru {query.lower()}&start=0&num={count}" \
+                      f"&ie=utf-8&oe=utf-8&lr=lang_ru"
+                output = []
+                async for question in self.parser.parse_search_results(await self.client.request_text("GET", url)):
+                    response = await self.parser.parse_question(await self.client.request_text("GET", question.url))
+                    output.append(question.copy(update=response))
+                return output
+            raise EmptyQueryError("The query must not be empty.")
         finally:
             await self.client.close()
 
