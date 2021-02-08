@@ -9,7 +9,7 @@ except:
 
 setup(
     name="ruotvet",
-    version="0.0.4",
+    version="0.0.4.1",
     description="Library for searching answers to school questions.",
     long_description=long_description,
     long_description_content_type="text/markdown",
