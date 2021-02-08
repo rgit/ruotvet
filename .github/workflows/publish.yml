@@ -8,7 +8,15 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: pypa/gh-action-pypi-publish@v1.4.1
+      - name: Installing dependences
+        uses: actions/setup-python@v1
         with:
-          user: __token__
-          password: ${{ secrets.PYPI_API_TOKEN }}
+          python-version: '3.x'
+        run: |
+          pip3 install setuptools wheel twine
+          python setup.py sdist bdist_wheel
+      - name: Uploading to PyPI
+      - uses: pypa/gh-action-pypi-publish@v1.4.1
+          with:
+            user: __token__
+            password: ${{ secrets.PYPI_API_TOKEN }}
