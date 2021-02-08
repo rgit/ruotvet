@@ -13,7 +13,7 @@ jobs:
       with:
         python-version: 3.7
     - name: Install dependencies
-      run: pip install wheel
+      run: pip install wheel twine
     - name: Build package
       run: python setup.py sdist bdist_wheel
     - name: Publish package
