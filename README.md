@@ -10,13 +10,17 @@ $ pip3 install ruotvet
 
 # Usage example:
 ```python3
-from ruotvet import Znanija
+from ruotvet import Brainly, get_attachment
 import asyncio
 
 
 async def main():
-    for obj in (await Znanija().get_answers("Корень из 121", count=1))[0]:
-        print(obj)
+    questions = await Brainly().get_answers("Корень из 121", count=1)
+    for question in questions:
+        print(question.answer)
+        if question.attachments:
+            await get_attachment(attachment=question.attachments[0])
+            
 
 loop = asyncio.get_event_loop()
 loop.run_until_complete(main())
