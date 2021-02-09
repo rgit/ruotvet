@@ -13,7 +13,8 @@ except:
 
 def get_version():
     try:
-        return re.findall(r"^__version__ = '([^']+)'\r?$", f"{WORK_DIR}/ruotvet/__init__.py", re.M)[0]
+        file = (WORK_DIR / "ruotvet" / "__init__.py").read_text("utf-8")
+        return re.findall(r"^__version__ = \"([^\"]+)\"\r?$", file, re.M)[0]
     except IndexError:
         raise RuntimeError("Unable to determine version.")
 
