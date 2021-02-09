@@ -39,6 +39,14 @@ class AIOHTTPClient:
         )
 
     async def request_text(self, method: str, url: str, body: dict = None, params: dict = None) -> str:
+        """
+        This function makes an async request to URL and returns text.
+        :param method: Method for a request.
+        :param url: Request URL.
+        :param body: Request data.
+        :param params: Query parameters.
+        :return: Request result.
+        """
         async with self.session.request(
             method=method,
             url=url,
@@ -51,6 +59,14 @@ class AIOHTTPClient:
             return await response.text()
 
     async def request_content(self, method: str, url: str, body: dict = None, params: dict = None) -> bytes:
+        """
+        This function makes an async request to URL and returns bytes.
+        :param method: Method for a request.
+        :param url: Request URL.
+        :param body: Request data.
+        :param params: Query parameters.
+        :return: Request result.
+        """
         async with self.session.request(
             method=method,
             url=url,
@@ -63,6 +79,14 @@ class AIOHTTPClient:
             return await response.read()
 
     async def request_json(self, method: str, url: str, body: dict = None, params: dict = None) -> dict:
+        """
+        This function makes an async request to URL and returns json.
+        :param method: Method for a request.
+        :param url: Request URL.
+        :param body: Request data.
+        :param params: Query parameters.
+        :return: Request result.
+        """
         async with self.session.request(
             method=method,
             url=url,
@@ -75,4 +99,7 @@ class AIOHTTPClient:
             return await response.json()
 
     async def close(self):
+        """
+        This function closes a session.
+        """
         await self.session.close()
