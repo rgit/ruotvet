@@ -2,4 +2,6 @@ aiohttp~=3.7.3
 pydantic~=1.7.3
 beautifulsoup4~=4.9.3
 setuptools~=41.2.0
-sphinx==3.4.3
+sphinx~=3.4.3
+aiofiles~=0.3.2
+
