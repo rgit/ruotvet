@@ -12,6 +12,12 @@ class GDZ:
         self.parser = Parser()
 
     async def get_answers(self, query: str, count: int = 1) -> List[Question]:
+        """
+        This function search for a query in google, after that parse results.
+        :param query: Search query.
+        :param count: Count of answers.
+        :return: List of answered questions.
+        """
         try:
             if query:
                 url = f"https://www.google.com/search?q=site:gdz.ru {query.lower()}&start=0&num={count}" \
