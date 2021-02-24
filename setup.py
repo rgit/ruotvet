@@ -29,7 +29,7 @@ setup(
     author="Kirill Feschenko",
     author_email="swipduces@yandex.com",
     python_requires=">=3.7.0",
-    url="https://github.com/ruotvet/ruotvet/",
+    url="https://github.com/rgit/ruotvet/",
     packages=find_packages(),
     install_requires=["aiohttp", "beautifulsoup4", "pydantic"],
     include_package_data=True,
