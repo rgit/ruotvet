@@ -6,4 +6,4 @@ if sys.version_info < (3, 7):
 from .clients import *
 from .utils import *
 
-__version__ = "0.1.2"
+__version__ = "0.1.3"

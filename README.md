@@ -5,7 +5,7 @@
 
 ###### Download library using pip
 ```bash
-$ pip3 install ruotvet
+$ pip3 install ruotvet -U
 ```
 
 # Usage example:
