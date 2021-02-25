@@ -3,6 +3,7 @@ from ruotvet.types import Question, Attachment
 from ..exceptions import EmptyQueryError
 from ruotvet.http import AIOHTTPClient
 from bs4 import BeautifulSoup
+import re
 
 
 class SuperResheba:
@@ -42,11 +43,7 @@ class Parser:
 
     @staticmethod
     async def parse_search_results(response: str) -> AsyncGenerator[Optional[Question], None]:
-        soup = BeautifulSoup(response, "html.parser")
-        for iteration in soup.find_all(href=True):
-            if iteration and iteration.findChildren("h3"):
-                if iteration["href"].startswith("https"):
-                    yield Question(url=iteration["href"])
+        yield Question(url="https://" + re.findall(r"(superresheba\.by/(.+?)&)", response)[0][0][:-1])
 
     async def parse_question(self, response: str) -> Optional[dict]:
         soup = BeautifulSoup(response, "html.parser")
