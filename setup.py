@@ -31,7 +31,7 @@ setup(
     python_requires=">=3.7.0",
     url="https://github.com/rgit/ruotvet/",
     packages=find_packages(),
-    install_requires=["aiohttp", "beautifulsoup4", "pydantic"],
+    install_requires=["aiohttp", "aiofiles", "beautifulsoup4", "pydantic", "opencv-python", "pytesseract"],
     include_package_data=True,
     license="GNU LGPLv3",
     classifiers=[
@@ -45,6 +45,9 @@ setup(
         "Operating System :: OS Independent",
         "Programming Language :: Python :: Implementation :: CPython",
         "Programming Language :: Python :: Implementation :: PyPy",
+        "Topic :: Scientific/Engineering :: Image Recognition"
         "Topic :: Utilities",
+        "Topic :: Education",
+        "Typing :: Typed"
     ]
 )
