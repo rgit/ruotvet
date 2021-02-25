@@ -45,7 +45,7 @@ setup(
         "Operating System :: OS Independent",
         "Programming Language :: Python :: Implementation :: CPython",
         "Programming Language :: Python :: Implementation :: PyPy",
-        "Topic :: Scientific/Engineering :: Image Recognition"
+        "Topic :: Scientific/Engineering :: Image Recognition",
         "Topic :: Utilities",
         "Topic :: Education",
         "Typing :: Typed"
