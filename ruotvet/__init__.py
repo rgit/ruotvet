@@ -4,6 +4,5 @@ if sys.version_info < (3, 7):
                       "please install Python 3.7+")
 
 from .clients import *
-from .utils import *
 
-__version__ = "0.1.3"
+__version__ = "1.0.0"

@@ -21,3 +21,11 @@ class Question(BaseModel):
     question: Optional[str] = None
     answer: Optional[str] = None
     attachments: List[Optional[Attachment]] = None
+
+
+class File(BaseModel):
+    """
+    This object represents a file. Contains a path and file format.
+    """
+    path: str
+    format: str

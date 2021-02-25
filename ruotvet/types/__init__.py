@@ -1,1 +1,1 @@
-from .base import Question, Attachment
+from .base import Question, Attachment, File
