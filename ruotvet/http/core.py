@@ -5,15 +5,18 @@ import asyncio
 
 class AbstractHTTPClient(ABC):
     @abstractmethod
-    async def request_text(self, method: str, url: str, body: dict = None, params: str = None) -> str:
+    async def request_text(self, method: str, url: str, body: dict = None, params: str = None,
+                           proxy: str = None) -> str:
         ...
 
     @abstractmethod
-    async def request_content(self, method: str, url: str, body: dict = None, params: str = None) -> str:
+    async def request_content(self, method: str, url: str, body: dict = None, params: str = None,
+                              proxy: str = None) -> str:
         ...
 
     @abstractmethod
-    async def request_json(self, method: str, url: str, body: dict = None, params: str = None) -> str:
+    async def request_json(self, method: str, url: str, body: dict = None, params: str = None,
+                           proxy: str = None) -> str:
         ...
 
     @abstractmethod
@@ -35,16 +38,18 @@ class AIOHTTPClient:
         self.session = session or aiohttp.ClientSession(
             loop=asyncio.get_event_loop(),
             connector=aiohttp.TCPConnector(ssl=False),
-            trust_env=False,
+            trust_env=False
         )
 
-    async def request_text(self, method: str, url: str, body: dict = None, params: dict = None) -> str:
+    async def request_text(self, method: str, url: str, body: dict = None, params: dict = None,
+                           proxy: str = None) -> str:
         """
         This function makes an async request to URL and returns text.
         :param method: Method for a request.
         :param url: Request URL.
         :param body: Request data.
         :param params: Query parameters.
+        :param proxy: Proxy for request.
         :return: Request result.
         """
         async with self.session.request(
@@ -55,16 +60,19 @@ class AIOHTTPClient:
             headers=self.headers,
             allow_redirects=False,
             timeout=5,
+            proxy=proxy
         ) as response:
             return await response.text()
 
-    async def request_content(self, method: str, url: str, body: dict = None, params: dict = None) -> bytes:
+    async def request_content(self, method: str, url: str, body: dict = None, params: dict = None,
+                              proxy: str = None) -> bytes:
         """
         This function makes an async request to URL and returns bytes.
         :param method: Method for a request.
         :param url: Request URL.
         :param body: Request data.
         :param params: Query parameters.
+        :param proxy: Proxy for request.
         :return: Request result.
         """
         async with self.session.request(
@@ -75,16 +83,19 @@ class AIOHTTPClient:
             headers=self.headers,
             allow_redirects=False,
             timeout=5,
+            proxy=proxy
         ) as response:
             return await response.read()
 
-    async def request_json(self, method: str, url: str, body: dict = None, params: dict = None) -> dict:
+    async def request_json(self, method: str, url: str, body: dict = None, params: dict = None,
+                           proxy: str = None) -> dict:
         """
         This function makes an async request to URL and returns json.
         :param method: Method for a request.
         :param url: Request URL.
         :param body: Request data.
         :param params: Query parameters.
+        :param proxy: Proxy for request.
         :return: Request result.
         """
         async with self.session.request(
@@ -95,6 +106,7 @@ class AIOHTTPClient:
             headers=self.headers,
             allow_redirects=False,
             timeout=5,
+            proxy=proxy
         ) as response:
             return await response.json()
 
