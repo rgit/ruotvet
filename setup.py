@@ -30,6 +30,10 @@ setup(
     author_email="swipduces@yandex.com",
     python_requires=">=3.7.0",
     url="https://github.com/rgit/ruotvet/",
+    project_urls={
+        "Documentation": "https://github.com/rgit/ruotvet/blob/master/README.md",
+        "Issues": 'https://github.com/rgit/ruotvet/issues',
+    },
     packages=find_packages(),
     install_requires=["aiohttp", "aiofiles", "beautifulsoup4", "pydantic", "opencv-python", "pytesseract"],
     include_package_data=True,

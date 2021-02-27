@@ -58,7 +58,7 @@ class AIOHTTPClient:
             data=body,
             params=params,
             headers=self.headers,
-            allow_redirects=False,
+            allow_redirects=True,
             timeout=5,
             proxy=proxy
         ) as response:

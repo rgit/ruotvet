@@ -12,7 +12,7 @@ $ pip3 install ruotvet -U
 
 <h2>Usage examples:</h2>
 
-<h3>Query with attachment saving example:</h3> 
+<h5>Query with attachment saving example:</h5> 
 
 ```python3
 from ruotvet.utils import get_attachment
@@ -34,9 +34,9 @@ loop.run_until_complete(main())
 
 <br>
 
-<h3>Image OCR example:</h3>
+<h5>Image OCR example:</h5>
 
-<p>Before using OCR you need to install tesseract and your language data for it:</p>
+<p>Before using OCR you need to install tesseract and your language data for it.</p>
 <p>In macOS simply install it using brew:</p>
 
 ```bash
@@ -52,9 +52,6 @@ $ sudo apt-get install tesseract-ocr-all
 ```
 
 <p>For using OCR in Windows, follow this <a href="https://github.com/UB-Mannheim/tesseract/wiki">instruction</a>.</p>
-
-
-
 
 
 ```python3

@@ -1,9 +1,9 @@
-from typing import List, Optional, AsyncGenerator
 from ruotvet.types import Question, Attachment
 from ..exceptions import EmptyQueryError
 from ruotvet.http import AIOHTTPClient
+from typing import List, Optional
+from ruotvet.utils import Google
 from bs4 import BeautifulSoup
-import re
 
 
 class SuperResheba:
@@ -11,21 +11,23 @@ class SuperResheba:
         self.client = AIOHTTPClient()
         self.parser = Parser()
 
-    async def get_answers(self, query: str, count: int = 1) -> List[Question]:
+    async def get_answers(self, query: str, count: int = 1, proxy: str = None) -> List[Question]:
         """
         This function search for a query in google, after that parse results.
         :param query: Search query.
         :param count: Count of answers.
+        :param proxy: Proxy that will be used during request.
         :return: List of answered questions.
         """
         try:
             if query:
-                url = f"https://www.google.com/search?q=site:superresheba.by {query.lower()}&start=0&num={count}" \
-                      f"&ie=utf-8&oe=utf-8&lr=lang_ru"
                 output = []
-                async for question in self.parser.parse_search_results(await self.client.request_text("GET", url)):
-                    response = await self.parser.parse_question(await self.client.request_text("GET", question.url))
-                    if (response["question"] or response["answer"] or response["attachments"]) is not None:
+                response = await Google().search(f"site:gdz.ru {query}", count, proxy=proxy)
+                if "results" in response:
+                    for url in response["results"]:
+                        question = Question(url=url["url"])
+                        response = await self.parser.parse_question(await self.client.request_text(
+                            "GET", question.url, proxy=proxy))
                         output.append(question.copy(update=response))
                 return output
             raise EmptyQueryError("The query must not be empty.")
@@ -40,10 +42,6 @@ class Parser:
         for word in text.rstrip(" ").split():
             output.append(word)
         return " ".join(output).capitalize()
-
-    @staticmethod
-    async def parse_search_results(response: str) -> AsyncGenerator[Optional[Question], None]:
-        yield Question(url="https://" + re.findall(r"(superresheba\.by/(.+?)&)", response)[0][0][:-1])
 
     async def parse_question(self, response: str) -> Optional[dict]:
         soup = BeautifulSoup(response, "html.parser")
