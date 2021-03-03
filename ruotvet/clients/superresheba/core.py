@@ -22,12 +22,12 @@ class SuperResheba:
         try:
             if query:
                 output = []
-                response = await Google().search(f"site:gdz.ru {query}", count, proxy=proxy)
+                response = await Google().search(f"site: superresheba.by {query}", count, proxy=proxy)
                 for url in response:
                     question = Question(url=url)
-                    response = await self.parser.parse_question(await self.client.request_text(
+                    response_parsed = await self.parser.parse_question(await self.client.request_text(
                         "GET", question.url, proxy=proxy))
-                    output.append(question.copy(update=response))
+                    output.append(question.copy(update=response_parsed))
                 return output
             raise EmptyQueryError("The query must not be empty.")
         finally:
