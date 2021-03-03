@@ -3,7 +3,6 @@ from ..exceptions import EmptyQueryError
 from ruotvet.http import AIOHTTPClient
 from typing import List, Optional
 from ruotvet.utils import Google
-from bs4 import BeautifulSoup
 import re
 
 
@@ -36,29 +35,11 @@ class GDZ:
 
 
 class Parser:
-    @staticmethod
-    def _match_media_url(text: str) -> str or None:
-        try:
-            src = "https://" + re.findall(r"(src=\"//(.+?)\")", str(text))[0][1]
-            if "&amp;" in src:
-                return src.replace("&amp;", "&")
-            return src
-        except IndexError:
-            return None
-
-    @staticmethod
-    def prepare_text(text: str) -> str:
-        output = []
-        for word in text.rstrip(" ").rstrip("\n").split():
-            output.append(word)
-        return " ".join(output).capitalize()
 
     async def parse_question(self, response: str) -> Optional[dict]:
-        soup = BeautifulSoup(response, "html.parser")
-        question = self.prepare_text(soup.find("h1", {"itemprop": "name"}).text or None)
-        images = soup.find_all("div", {"class": "task-img-container"})
+        question = re.findall(r'(?<=<h1 itemprop=\"name\">).*?(?:\<)',response)[0] or None
+        images = re.findall(r'(?<=<img src="\/\/).{0,500}(?=" alt)',response)
         attachments = []
         for image in images:
-            if image.find("img"):
-                attachments.append(Attachment(url=self._match_media_url(image.find("img"))))
+            attachments.append(Attachment(url="https://" + image))
         return {"question": question, "answer": None, "attachments": attachments or None}
