@@ -35,7 +35,7 @@ setup(
         "Issues": "https://github.com/rgit/ruotvet/issues",
     },
     packages=find_packages(),
-    extras_require={"ocr": ["opencv-python", "pytesseract"]},
+    extras_require={"ocr": ["opencv-python~=4.2.0.34", "pytesseract~=0.3.2"]},
     install_requires=["aiohttp", "aiofiles", "beautifulsoup4", "pydantic"],
     include_package_data=True,
     license="GNU LGPLv3",
