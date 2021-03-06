@@ -1,8 +1,8 @@
-name: Upload a new version of a RuOtvet package
+name: Upload a new version of a RuOtvet package to test.pypi.org
 
 on:
   push:
-    branches: master
+    branches: dev
     
 jobs:
   deploy:
@@ -23,5 +23,5 @@ jobs:
         TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
       run: |
         python setup.py sdist bdist_wheel
-        twine upload dist/*
+        twine upload --repository-url https://test.pypi.org/legacy/ dist/*
         
