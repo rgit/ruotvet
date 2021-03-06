@@ -5,4 +5,8 @@ if sys.version_info < (3, 7):
 
 from .clients import *
 
+<<<<<<< HEAD
 __version__ = "1.2.1.3"
+=======
+__version__ = "1.2.1"
+>>>>>>> 8df903d... Merge from master

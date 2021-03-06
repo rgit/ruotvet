@@ -83,9 +83,15 @@ $RECYCLE.BIN/
 .idea/**/gradle.xml
 .idea/**/libraries
 
+<<<<<<< HEAD
 
 #Vscode IDE
 .vscode
+=======
+#Vscode IDE
+.vscode/
+
+>>>>>>> 8df903d... Merge from master
 # Gradle and Maven with auto-import
 # When using Gradle or Maven with auto-import, you should exclude module files,
 # since they will be recreated, and may cause churn.  Uncomment if using

@@ -24,10 +24,17 @@ class GDZ:
                 output = []
                 response = await Google().search(f"site:gdz.ru {query}", count, proxy=proxy)
                 for url in response:
+<<<<<<< HEAD
                     question = Question(url=url)
                     response_parsed = await self.parser.parse_question(await self.client.request_text(
                         "GET", question.url, proxy=proxy))
                     output.append(question.copy(update=response_parsed))
+=======
+                     question = Question(url=url)
+                     response_parsed = await self.parser.parse_question(await self.client.request_text(
+                         "GET", question.url, proxy=proxy))
+                     output.append(question.copy(update=response_parsed))
+>>>>>>> 8df903d... Merge from master
                 return output
             raise EmptyQueryError("The query must not be empty.")
         finally:

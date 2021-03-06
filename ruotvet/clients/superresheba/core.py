@@ -22,12 +22,21 @@ class SuperResheba:
         try:
             if query:
                 output = []
+<<<<<<< HEAD
                 response = await Google().search(f"site: superresheba.by {query}", count, proxy=proxy)
                 for url in response:
                     question = Question(url=url)
                     response_parsed = await self.parser.parse_question(await self.client.request_text(
                         "GET", question.url, proxy=proxy))
                     output.append(question.copy(update=response_parsed))
+=======
+                response = await Google().search(f"site:superresheba.by {query}", count, proxy=proxy)
+                for url in response:
+                     question = Question(url=url)
+                     response = await self.parser.parse_question(await self.client.request_text(
+                         "GET", question.url, proxy=proxy))
+                     output.append(question.copy(update=response))
+>>>>>>> 8df903d... Merge from master
                 return output
             raise EmptyQueryError("The query must not be empty.")
         finally:
