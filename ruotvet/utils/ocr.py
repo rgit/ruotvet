@@ -1,10 +1,14 @@
 from string import ascii_letters, ascii_uppercase, digits
 from typing import Optional, List, Dict, Union
-from pytesseract import image_to_data, Output
 from ruotvet.types import File
-from numpy import ndarray
 from random import choice
-import cv2
+try:
+    from pytesseract import image_to_data, Output
+    import cv2
+    from numpy import ndarray
+except ImportError:
+    raise ImportError("Install ocr module")
+
 
 
 class Preprocess:
