@@ -32,10 +32,11 @@ setup(
     url="https://github.com/rgit/ruotvet/",
     project_urls={
         "Documentation": "https://github.com/rgit/ruotvet/blob/master/README.md",
-        "Issues": 'https://github.com/rgit/ruotvet/issues',
+        "Issues": "https://github.com/rgit/ruotvet/issues",
     },
     packages=find_packages(),
-    install_requires=["aiohttp", "aiofiles", "beautifulsoup4", "pydantic", "opencv-python", "pytesseract"],
+    extras_require={"ocr": ["opencv-python", "pytesseract"]},
+    install_requires=["aiohttp", "aiofiles", "beautifulsoup4", "pydantic"],
     include_package_data=True,
     license="GNU LGPLv3",
     classifiers=[
@@ -52,6 +53,6 @@ setup(
         "Topic :: Scientific/Engineering :: Image Recognition",
         "Topic :: Utilities",
         "Topic :: Education",
-        "Typing :: Typed"
-    ]
+        "Typing :: Typed",
+    ],
 )
