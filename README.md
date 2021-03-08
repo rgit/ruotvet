@@ -16,12 +16,12 @@ $ pip3 install ruotvet -U
 
 ```python3
 from ruotvet.utils import get_attachment
-from ruotvet import Brainly
+from ruotvet import YandexQ
 import asyncio
 
 
 async def main():
-    questions = await Brainly().get_answers("Корень из 121", count=1)
+    questions = await YandexQ().get_answers("Что такое математика", count=1)
     for question in questions:
         print("Answer: ", question.answer)
         if question.attachments:
@@ -36,7 +36,16 @@ loop.run_until_complete(main())
 
 <h5>Image OCR example:</h5>
 
-<p>Before using OCR you need to install tesseract and your language data for it.</p>
+<p>Before using OCR you need to install our sub-package for recognition and tesseract with language data for it.</p>
+
+<p>Install our subpackage:</p>
+
+```bash
+$ pip3 install ruotvet[ocr]
+```
+
+<p>.. and after that install tesseract:</p>
+
 <p>In macOS simply install it using brew:</p>
 
 ```bash
@@ -56,13 +65,13 @@ $ sudo apt-get install tesseract-ocr-all
 
 ```python3
 from ruotvet.utils import OCR
-from ruotvet import Brainly
+from ruotvet import YandexQ
 import asyncio
 
 
 async def main():
     query = OCR().recognize("image.png")["text"]
-    questions = await Brainly().get_answers(query, count=1)
+    questions = await YandexQ().get_answers(query, count=1)
     for question in questions:
         print("Answer: ", question.answer)
             
