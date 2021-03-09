@@ -24,17 +24,10 @@ class GDZ:
                 output = []
                 response = await Google().search(f"site:gdz.ru {query}", count, proxy=proxy)
                 for url in response:
-<<<<<<< HEAD
                     question = Question(url=url)
                     response_parsed = await self.parser.parse_question(await self.client.request_text(
-                        "GET", question.url, proxy=proxy))
+                                                                       "GET", question.url, proxy=proxy))
                     output.append(question.copy(update=response_parsed))
-=======
-                     question = Question(url=url)
-                     response_parsed = await self.parser.parse_question(await self.client.request_text(
-                         "GET", question.url, proxy=proxy))
-                     output.append(question.copy(update=response_parsed))
->>>>>>> 8df903d... Merge from master
                 return output
             raise EmptyQueryError("The query must not be empty.")
         finally:
@@ -42,10 +35,9 @@ class GDZ:
 
 
 class Parser:
-
     async def parse_question(self, response: str) -> Optional[dict]:
-        question = re.findall(r'(?<=<h1 itemprop=\"name\">).*?(?:\<)',response)[0] or None
-        images = re.findall(r'(?<=<img src="\/\/).{0,500}(?=" alt)',response)
+        question = re.findall(r'(?<=<h1 itemprop=\"name\">).*?(?:\<)', response)[0] or None
+        images = re.findall(r'(?<=<img src="\/\/).{0,500}(?=" alt)', response)
         attachments = []
         for image in images:
             attachments.append(Attachment(url="https://" + image))
