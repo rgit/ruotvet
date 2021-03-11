@@ -1,6 +1,6 @@
 from string import ascii_uppercase, ascii_letters, digits
+from ..types import Attachment, File
 from ..http import AIOHTTPClient
-from ..types import Attachment
 from random import choice
 import aiofiles
 
@@ -14,4 +14,4 @@ async def get_attachment(attachment: Attachment, path: str = None) -> Attachment
         await media.write(content)
         await media.close()
     await client.close()
-    return attachment.copy(update={"path": filename})
+    return attachment.copy(update={"file": File(filename=filename, path=path, format="png")})

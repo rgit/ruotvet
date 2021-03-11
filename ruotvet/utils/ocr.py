@@ -7,8 +7,7 @@ try:
     import cv2
     from numpy import ndarray
 except ImportError:
-    raise ImportError("Install ocr module")
-
+    raise ImportError("For using OCR install all requirements. You can read more about it in README.")
 
 
 class Preprocess:
@@ -48,4 +47,4 @@ class OCR:
         filename = "".join(choice(ascii_uppercase + ascii_letters + digits) for _ in range(15))
         path = f"{path}/{filename}.{format}" if path else f"{filename}.{format}"
         cv2.imwrite(path, result)
-        return File(path=path, format=format)
+        return File(filename=filename, path=path, format=format)
