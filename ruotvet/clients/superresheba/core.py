@@ -22,7 +22,7 @@ class SuperResheba:
         try:
             if query:
                 output = []
-                response = await Google().search(f"site:superresheba.by {query}", count, proxy=proxy)
+                response = await Google().search(f"site:superresheba.by/resh/ {query}", count, proxy=proxy)
                 for url in response:
                     question = Question(url=url)
                     response = await self.parser.parse_question(await self.client.request_text(
